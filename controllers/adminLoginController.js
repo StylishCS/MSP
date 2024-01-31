@@ -12,9 +12,8 @@ async function adminLoginController(req, res) {
     if (!user) {
       return res.status(401).json("Wrong Email Or Password...");
     }
-    console.log(user)
-    console.log(await bcrypt.compare(req.body.password, user.password));
-    if (!(await bcrypt.compare(req.body.password, user.password))) {
+    const match = await bcrypt.compare(req.body.password, user.password);
+    if (!match) {
       return res.status(401).json("Wrong Email Or Password...");
     }
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {

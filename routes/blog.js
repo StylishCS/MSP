@@ -3,14 +3,19 @@ var router = express.Router();
 
 const upload = require("../utils/uploadImage");
 const { Blog } = require("../models/Blog");
+const {
+  addBlogController,
+  deleteBlogController,
+  editBlogController,
+  getBlogByIdController,
+  getBlogsController,
+} = require("../controllers/blogController");
 
-
-router.get("/get", paginatedResults(Blog), );
-router.get("/getById/:id");
-router.post("/add", upload.single('image'),)
-router.patch("/edit/:id", upload.single("image"));
-router.delete("/delete/:id")
-
+router.get("/get", paginatedResults(Blog), getBlogsController);
+router.get("/getById/:id", getBlogByIdController);
+router.post("/add", upload.single("image"), addBlogController);
+router.patch("/edit/:id", upload.single("image"), editBlogController);
+router.delete("/delete/:id", deleteBlogController);
 
 function paginatedResults(model) {
   return async (req, res, next) => {

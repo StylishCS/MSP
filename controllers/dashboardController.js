@@ -41,7 +41,7 @@ async function getTeamMembers(req, res) {
     const limit = req.query.limit;
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-    const paginatedData = users.slice(startIndex, endIndex);
+    const paginatedData = teamMembers.slice(startIndex, endIndex);
     return res.status(200).json(paginatedData);
   } catch (error) {
     console.log(error);

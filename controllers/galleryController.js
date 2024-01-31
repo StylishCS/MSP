@@ -29,4 +29,56 @@ async function getGalleryItems(req, res) {
   }
 }
 
-module.exports = { addGalleryItem, getGalleryItems };
+async function getGalleryItemById(req, res) {
+  try {
+    const galleryItem = await Gallery.findById(req.params.id);
+    if (!galleryItem) {
+      return res.status(404).json("Item Not Found In The Gallery...");
+    }
+    return res.status(200).json(galleryItem);
+  } catch (error) {
+    return res.status(500).json("INTERNAL SERVER ERROR");
+  }
+}
+
+async function deleteGalleryItem(req, res) {
+  try {
+    const galleryItem = await Gallery.findById(req.params.id);
+    if (!galleryItem) {
+      return res.status(404).json("Item Not Found In The Gallery...");
+    }
+    await Gallery.findByIdAndDelete(req.params.id);
+    return res.status(200).json("Item Deleted From The Gallery Successfully");
+  } catch (error) {
+    return res.status(500).json("INTERNAL SERVER ERROR");
+  }
+}
+
+async function updateGalleryItem(req, res) {
+  try {
+    const galleryItem = await Gallery.findById(req.params.id);
+    if (!galleryItem) {
+      return res.status(404).json("Item Not Found In The Gallery...");
+    }
+    let image = galleryItem.image;
+    if (req.file) {
+      image = process.env.URL + req.file.filename;
+    }
+    const updatedItem = {
+      name: req.body.name !== null ? req.body.name : galleryItem.name,
+      image: image,
+    };
+    await galleryItem.updateOne(updatedItem);
+    return res.status(200).json(updatedItem);
+  } catch (error) {
+    return res.status(500).json("INTERNAL SERVER ERROR");
+  }
+}
+
+module.exports = {
+  addGalleryItem,
+  getGalleryItems,
+  deleteGalleryItem,
+  getGalleryItemById,
+  updateGalleryItem,
+};

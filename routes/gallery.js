@@ -1,14 +1,21 @@
 var express = require("express");
-const { addGalleryItem, getGalleryItems } = require("../controllers/galleryController");
+const {
+  addGalleryItem,
+  getGalleryItems,
+  deleteGalleryItem,
+  getGalleryItemById,
+  updateGalleryItem
+} = require("../controllers/galleryController");
 const upload = require("../utils/uploadImage");
 const { Gallery } = require("../models/Gallery");
 
-
 var router = express.Router();
 
-router.post("/add",upload.single('image'), addGalleryItem);
-router.get("/get", paginatedResults(Gallery) ,getGalleryItems);
-
+router.post("/add", upload.single("image"), addGalleryItem);
+router.get("/get", paginatedResults(Gallery), getGalleryItems);
+router.delete("/delete/:id", deleteGalleryItem);
+router.get("/getById/:id", getGalleryItemById);
+router.patch("/editGalleryItem", updateGalleryItem);
 
 /* Pagination Function */
 function paginatedResults(model) {
@@ -36,7 +43,7 @@ function paginatedResults(model) {
     }
     try {
       results.results = await model.find().limit(limit).skip(startIndex).exec();
-      if(!results.results){
+      if (!results.results) {
         return res.status(404).json("No Data Found");
       }
       res.paginatedResults = results;

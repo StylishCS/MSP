@@ -36,40 +36,24 @@ const teamMemberSchema = new mongoose.Schema(
       required: true,
       minLength: 3,
       maxLength: 255,
-      validate: {
-        validator: urlValidator,
-        message: "Must be a Valid URL",
-      },
     },
     facebook: {
       type: String,
       required: true,
       minLength: 3,
       maxLength: 255,
-      validate: {
-        validator: urlValidator,
-        message: "Must be a Valid URL",
-      },
     },
     behanceOrGithub: {
       type: String,
       required: false,
       default: "",
       maxLength: 255,
-      validate: {
-        validator: urlValidator,
-        message: "Must be a Valid URL",
-      },
     },
     linktree: {
       type: String,
       required: false,
       default: "",
       maxLength: 255,
-      validate: {
-        validator: urlValidator,
-        message: "Must be a Valid URL",
-      },
     },
     image: {
       type: String,

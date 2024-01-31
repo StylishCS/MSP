@@ -1,6 +1,6 @@
 const { TeamMember } = require("../models/TeamMember");
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 /* Team Members Route Controllers */
 async function addTeamMember(req, res) {
@@ -121,7 +121,7 @@ async function updateTeamMember(req, res) {
           : teamMember.description,
     };
     await teamMember.updateOne(updatedMember);
-    return res.status(200).json("Member Updated Successfully.");
+    return res.status(200).json(updatedMember);
   } catch (error) {
     return res.status(500).json("INTERNAL SERVER ERROR");
   }

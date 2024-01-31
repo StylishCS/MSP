@@ -78,7 +78,7 @@ async function editBlogController(req, res) {
           : blog.description,
     };
     await blog.updateOne(updatedBlog);
-    return res.status(200).json("Blog Updated Successfully");
+    return res.status(200).json(updatedBlog);
   } catch (error) {
     return res.status(500).json("INTERNAL SERVER ERROR");
   }

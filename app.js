@@ -1,20 +1,26 @@
+/* Packages */
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
+
+/* Routes */
 var indexRouter = require("./routes/index");
 var configRouter = require("./routes/config");
-var usersRouter = require("./routes/users");
+var adminRouter = require("./routes/admin");
+
+/* Environment Variables Configuration */
 require("dotenv").config();
+
+/* Database Connection */
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("Connected to MongoDB.."))
   .catch((err) => console.error("MongoDB Connection Failed..", err));
 
 var app = express();
-console.log("server is up");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -26,9 +32,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+/* Routes */
 app.use("/", indexRouter);
 app.use("/config", configRouter);
-app.use("/users", usersRouter);
+app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -6,6 +6,6 @@ var router = express.Router();
 
 router.post("/add", upload.single("image"), addTeamMember);
 
-app.use("/dashboard");
+router.use("/dashboard", router);
 
 module.exports = router;

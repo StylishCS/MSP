@@ -1,15 +1,7 @@
 var express = require("express");
+const { adminLoginController } = require("../controllers/adminLoginController");
 var router = express.Router();
 
-const {
-  testAddController,
-  testGetController,
-} = require("../controllers/dbTestController");
-/* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.post("/login", adminLoginController);
 
-router.post("/testPost", testAddController);
-router.get("/testGet", testGetController);
 module.exports = router;

@@ -5,12 +5,11 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
+var configRouter = require("./routes/config");
 var usersRouter = require("./routes/users");
 require("dotenv").config();
 mongoose
-  .connect(
-    process.env.MONGODB_URL
-  )
+  .connect(process.env.MONGODB_URL)
   .then(() => console.log("Connected to MongoDB.."))
   .catch((err) => console.error("MongoDB Connection Failed..", err));
 
@@ -28,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/config", configRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler

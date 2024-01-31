@@ -24,7 +24,9 @@ async function addTeamMember(req, res) {
     //   });
     //   return res.status(400).send(errors);
     // }
-    console.log(error)
+    console.log(error.name);
+    console.log(error.message);
+    //console.log(error)
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }

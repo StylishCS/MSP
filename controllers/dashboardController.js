@@ -1,6 +1,5 @@
+const paginateData = require("../middlewares/paginateData");
 const { TeamMember } = require("../models/TeamMember");
-const validator = require("validator");
-
 async function addTeamMember(req, res) {
   try {
     const teamMember = new TeamMember({
@@ -37,21 +36,6 @@ async function getTeamMembers(req, res) {
     if (!teamMembers) {
       return res.status(400).json("No Team Members Found..");
     }
-    const page = req.query.page;
-    const limit = req.query.limit;
-    const startIndex = (page - 1) * limit;
-    const endIndex = page * limit;
-    const paginatedData = teamMembers.slice(startIndex, endIndex);
-    const data = {};
-    data.teamMembers = paginatedData;
-    data.next = {
-      page: page + 1,
-      limit: limit,
-    };
-    data.previous = {
-      page: page - 1,
-      limit: limit,
-    };
     return res.status(200).json(data);
   } catch (error) {
     console.log(error);

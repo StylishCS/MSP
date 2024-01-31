@@ -17,17 +17,16 @@ async function addTeamMember(req, res) {
     await teamMember.save();
     return res.status(200).json(teamMember);
   } catch (error) {
-    // if (error.name === "ValidationError") {
-    //   let errors = {};
-    //   Object.keys(error.errors).forEach((key) => {
-    //     errors[key] = error.errors[key].message;
-    //   });
-    //   return res.status(400).send(errors);
-    // }
-    console.log(error.name);
-    console.log(error.message);
-    console.log(error._message);
-    //console.log(error)
+    if (error.name === "ValidationError") {
+      let errors = {};
+      Object.keys(error.errors).forEach((key) => {
+        if (error.errors[key].message == "validator is not defined"){
+            error.errors[key].message = `${errors[key]} url must me valid`;
+        }
+          errors[key] = error.errors[key].message;
+      });
+      return res.status(400).send(errors);
+    }
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }

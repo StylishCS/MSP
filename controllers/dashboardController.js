@@ -28,7 +28,7 @@ async function getTeamMembers(req, res) {
 async function deleteTeamMember(req, res) {
   const teamMember = await TeamMember.findById(req.params.id);
   if (!teamMember) {
-    return res.status(400).json("No Team Members Found..");
+    return res.status(400).json("Team Member Not Found..");
   }
   await TeamMember.findByIdAndDelete(req.params.id);
   return res.status(200).json("Team Member Deleted.");

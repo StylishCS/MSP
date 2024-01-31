@@ -20,10 +20,10 @@ async function addTeamMember(req, res) {
     if (error.name === "ValidationError") {
       let errors = {};
       Object.keys(error.errors).forEach((key) => {
-        if (error.errors[key].message == "validator is not defined"){
-            error.errors[key].message = `Must be a Valid URL`;
+        if (error.errors[key].message == "validator is not defined") {
+          error.errors[key].message = `Must be a Valid URL`;
         }
-          errors[key] = error.errors[key].message;
+        errors[key] = error.errors[key].message;
       });
       return res.status(400).send(errors);
     }
@@ -37,7 +37,12 @@ async function getTeamMembers(req, res) {
     if (!teamMembers) {
       return res.status(400).json("No Team Members Found..");
     }
-    return res.status(200).json(teamMembers);
+    const page = req.query.page;
+    const limit = req.query.limit;
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const paginatedData = users.slice(startIndex, endIndex);
+    return res.status(200).json(paginatedData);
   } catch (error) {
     return res.status(500).json("INTERNAL SERVER ERROR");
   }

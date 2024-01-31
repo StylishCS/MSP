@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
 var configRouter = require("./routes/config");
 var adminRouter = require("./routes/admin");
+var teamRouter = require("./routes/team");
 
 /* Environment Variables Configuration */
 require("dotenv").config();
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, "uploads")));
 app.use("/", indexRouter);
 app.use("/config", configRouter);
 app.use("/admin", adminRouter);
+app.use("/teams", teamRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -15,7 +15,7 @@ const { TeamMember } = require("../models/TeamMember");
 router.post("/add", upload.single("image"), addTeamMember);
 router.get("/get", paginatedResults(TeamMember), getTeamMembers);
 router.delete("/delete/:id", deleteTeamMember);
-router.patch("/edit/:id", updateTeamMember);
+router.patch("/edit/:id", upload.single("image"), updateTeamMember);
 router.get("/getById/:id", getTeamMemberById);
 
 

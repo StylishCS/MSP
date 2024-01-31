@@ -44,6 +44,7 @@ async function getTeamMembers(req, res) {
     const paginatedData = users.slice(startIndex, endIndex);
     return res.status(200).json(paginatedData);
   } catch (error) {
+    console.log(error);
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }

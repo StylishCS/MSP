@@ -10,7 +10,7 @@ async function AdminPrivileges(req, res, next) {
     }
     const key = req.header("Authorization").split(" ")[0];
     const token = req.header("Authorization").split(" ")[1];
-    if (key !== "MSP") {
+    if (key !== process.env.JWT_KEYWORD) {
       console.log("flag 2");
       console.log(key);
       console.log(token);

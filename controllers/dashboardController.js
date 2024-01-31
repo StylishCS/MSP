@@ -25,6 +25,7 @@ async function addTeamMember(req, res) {
       });
       return res.status(400).send(errors);
     }
+    console.log(error);
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }
@@ -98,9 +99,6 @@ async function updateTeamMember(req, res) {
           ? req.body.description
           : teamMember.description,
     };
-    console.log(req.body.name)
-    console.log(teamMember)
-    console.log(updatedMember);
     await teamMember.updateOne(updatedMember);
     return res.status(200).json("Member Updated Successfully.");
   } catch (error) {

@@ -85,7 +85,6 @@ async function updateTeamMember(req, res) {
     }
     let image = teamMember.image;
     if (req.file) {
-      let image = teamMember.image;
       const parts = image.split("/");
       const imageName = parts[parts.length - 1];
       fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {

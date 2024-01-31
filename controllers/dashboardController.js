@@ -1,4 +1,3 @@
-const paginateData = require("../middlewares/paginateData");
 const { TeamMember } = require("../models/TeamMember");
 async function addTeamMember(req, res) {
   try {
@@ -55,7 +54,5 @@ async function deleteTeamMember(req, res) {
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }
-
-
 
 module.exports = { addTeamMember, getTeamMembers, deleteTeamMember };

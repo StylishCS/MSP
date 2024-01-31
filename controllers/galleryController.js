@@ -65,7 +65,7 @@ async function updateGalleryItem(req, res) {
       image = process.env.URL + req.file.filename;
     }
     const updatedItem = {
-      name: req.body.name !== null ? req.body.name : galleryItem.name,
+      name: req.body.name !== undefined ? req.body.name : galleryItem.name,
       image: image,
     };
     await galleryItem.updateOne(updatedItem);

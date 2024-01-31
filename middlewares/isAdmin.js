@@ -20,6 +20,7 @@ async function AdminPrivileges(req, res, next) {
     console.log(token)
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const admin = Admin.findById(decoded._id);
+    console.log(admin)
     if (!admin[0]) {
       console.log("flag 3");
       console.log(decoded._id)

@@ -1,5 +1,5 @@
-const multer = require("multer");
 const { TeamMember } = require("../models/TeamMember");
+const validator = require("validator");
 
 async function addTeamMember(req, res) {
   try {
@@ -14,6 +14,14 @@ async function addTeamMember(req, res) {
       image: process.env.URL + req.file.filename,
       description: req.body.description,
     });
+    if (
+      !validator.isURL(teamMember.linkedin) ||
+      !validator.isURL(teamMember.facebook) ||
+      !validator.isURL(teamMember.behanceOrGithub) ||
+      !validator.isURL(teamMember.linktree)
+    ) {
+      return res.status(400).json({ message: "Must be a Valid URL" });
+    }
     await teamMember.save();
     return res.status(200).json(teamMember);
   } catch (error) {

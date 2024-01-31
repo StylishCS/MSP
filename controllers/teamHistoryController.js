@@ -52,7 +52,11 @@ async function editTeamHistory(req, res) {
     if (req.file) {
       const parts = image.split("/");
       const imageName = parts[parts.length - 1];
-      fs.unlink("../uploads/" + imageName, null);
+      fs.unlink("../uploads/" + imageName, (err)=>{
+        if(err){
+            throw err;
+        }
+      });
       image = process.env.URL + req.file.filename;
     }
     const updatedTeamHistory = {
@@ -80,7 +84,11 @@ async function deleteTeamHistory(req, res) {
     let image = teamHistory.image;
     const parts = image.split("/");
     const imageName = parts[parts.length - 1];
-    fs.unlink("../uploads/" + imageName, null);
+    fs.unlink("../uploads/" + imageName, (err) => {
+      if (err) {
+        throw err;
+      }
+    });
     await TeamHistory.findByIdAndDelete(req.params.id);
     return res.status(200).json("Team History Deleted Successfully.")
   } catch (error) {

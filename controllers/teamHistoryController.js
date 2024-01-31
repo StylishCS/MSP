@@ -66,6 +66,7 @@ async function editTeamHistory(req, res) {
     await teamHistory.updateOne(updatedTeamHistory);
     return res.status(200).json(updatedTeamHistory);
   } catch (error) {
+    console.log(error)
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }

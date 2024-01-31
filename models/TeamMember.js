@@ -23,6 +23,8 @@ const teamMemberSchema = new mongoose.Schema(
       required: false,
       default: "",
       maxLength: 255,
+      unique: true,
+      index: true,
     },
     track: {
       type: String,
@@ -70,7 +72,6 @@ const teamMemberSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-teamMemberSchema.plugin(require("mongoose-beautiful-unique-validation"));
 
 const TeamMember = mongoose.model("TeamMember", teamMemberSchema);
 exports.TeamMember = TeamMember;

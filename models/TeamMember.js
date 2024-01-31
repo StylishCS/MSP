@@ -21,7 +21,6 @@ const teamMemberSchema = new mongoose.Schema(
     phone: {
       type: String,
       required: false,
-      unique: [true, "Phone number is already in use."],
       default: "",
       maxLength: 255,
     },
@@ -70,6 +69,8 @@ const teamMemberSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+teamMemberSchema.plugin(require("mongoose-beautiful-unique-validation"));
 
 const TeamMember = mongoose.model("TeamMember", teamMemberSchema);
 exports.TeamMember = TeamMember;

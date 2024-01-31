@@ -12,6 +12,7 @@ var configRouter = require("./routes/config");
 var adminRouter = require("./routes/admin");
 var teamRouter = require("./routes/team");
 var galleryRouter = require("./routes/gallery");
+var blogRouter = require("./routes/blog");
 
 /* Route Protection */
 const AdminPrivileges = require("./middlewares/isAdmin");
@@ -44,6 +45,7 @@ app.use("/config", configRouter);
 app.use("/admin", adminRouter);
 app.use("/dashboard/teams", AdminPrivileges, teamRouter);
 app.use("/dashboard/gallery", AdminPrivileges, galleryRouter);
+app.use("/dashboard/blog", AdminPrivileges, blogRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

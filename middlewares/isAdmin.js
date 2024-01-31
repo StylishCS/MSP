@@ -20,8 +20,9 @@ async function AdminPrivileges(req, res, next) {
     const admin = Admin.findById(decoded._id);
     if (!admin[0]) {
       console.log("flag 3");
-      console.log(admin);
-      console.log(admin[0]);
+      console.log(decoded._id)
+    //   console.log(admin);
+    //   console.log(admin[0]);
       return res.status(401).json("FORBIDDEN");
     }
     req.adminId = decoded._id;

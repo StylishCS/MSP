@@ -25,7 +25,9 @@ async function addTeamMember(req, res) {
       });
       return res.status(400).send(errors);
     }
-    console.log(error);
+    if (error.name === "MongoServerError"){
+        return res.status(400).json({phone:"Phone Number Already Exist."})
+    }
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }

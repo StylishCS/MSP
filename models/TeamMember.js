@@ -24,7 +24,6 @@ const teamMemberSchema = new mongoose.Schema(
       default: "",
       maxLength: 255,
       unique: true,
-      index: true,
     },
     track: {
       type: String,

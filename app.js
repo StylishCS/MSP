@@ -13,7 +13,7 @@ var adminRouter = require("./routes/admin");
 var teamRouter = require("./routes/team");
 
 /* Route Protection */
-const AdminPrivileges = require("../middlewares/isAdmin");
+const AdminPrivileges = require("./middlewares/isAdmin");
 
 /* Environment Variables Configuration */
 require("dotenv").config();

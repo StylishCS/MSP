@@ -18,7 +18,7 @@ async function adminLoginController(req, res) {
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE,
     });
-    return res.status(200).json(user, token);
+    return res.status(200).json({user, token});
   } catch (error) {
     console.log(error)
     return res.status(500).json("INTERNAL SERVER ERROR");

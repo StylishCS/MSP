@@ -31,11 +31,7 @@ async function addTeamMember(req, res) {
 
 async function getTeamMembers(req, res) {
   try {
-    const teamMembers = await TeamMember.find();
-    if (!teamMembers) {
-      return res.status(400).json("No Team Members Found..");
-    }
-    return res.status(200).json(data);
+    return res.status(200).json(res.paginatedResults);
   } catch (error) {
     console.log(error);
     return res.status(500).json("INTERNAL SERVER ERROR");

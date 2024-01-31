@@ -41,6 +41,9 @@ function paginatedResults(model) {
     }
     try {
       results.results = await model.find().limit(limit).skip(startIndex).exec();
+      if(!results.results){
+        return res.status(404).json("No Data Found");
+      }
       res.paginatedResults = results;
       next();
     } catch (e) {

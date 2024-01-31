@@ -18,7 +18,7 @@ async function addTeamMember(req, res) {
 }
 
 async function getTeamMembers(req, res) {
-  const teamMembers = TeamMember.find();
+  const teamMembers = await TeamMember.find();
   if (!teamMembers) {
     return res.status(400).json("No Team Members Found..");
   }

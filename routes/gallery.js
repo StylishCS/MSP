@@ -15,7 +15,7 @@ router.post("/add", upload.single("image"), addGalleryItem);
 router.get("/get", paginatedResults(Gallery), getGalleryItems);
 router.delete("/delete/:id", deleteGalleryItem);
 router.get("/getById/:id", getGalleryItemById);
-router.patch("/editGalleryItem", updateGalleryItem);
+router.patch("/editGalleryItem", upload.single("image"), updateGalleryItem);
 
 /* Pagination Function */
 function paginatedResults(model) {

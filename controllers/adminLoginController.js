@@ -12,6 +12,8 @@ async function adminLoginController(req, res) {
     if (!user) {
       return res.status(401).json("Wrong Email Or Password...");
     }
+    console.log(user)
+    console.log(await bcrypt.compare(req.body.password, user.password));
     if (!(await bcrypt.compare(req.body.password, user.password))) {
       return res.status(401).json("Wrong Email Or Password...");
     }

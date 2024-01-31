@@ -1,22 +1,13 @@
 var express = require("express");
-const app = require("../app");
+const { addGalleryItem, getGalleryItems } = require("../controllers/galleryController");
+const upload = require("../utils/uploadImage");
+const { Gallery } = require("../models/Gallery");
+
+
 var router = express.Router();
 
-const {
-  addTeamMember,
-  getTeamMembers,
-  deleteTeamMember,
-  updateTeamMember,
-  getTeamMemberById,
-} = require("../controllers/teamMembersController");
-const upload = require("../utils/uploadImage");
-const { TeamMember } = require("../models/TeamMember");
-
-router.post("/add", upload.single("image"), addTeamMember);
-router.get("/get", paginatedResults(TeamMember), getTeamMembers);
-router.delete("/delete/:id", deleteTeamMember);
-router.patch("/edit/:id", upload.single("image"), updateTeamMember);
-router.get("/getById/:id", getTeamMemberById);
+router.post("/add",upload.single('image'), addGalleryItem);
+router.get("/get", paginatedResults(Gallery) ,getGalleryItems);
 
 
 /* Pagination Function */

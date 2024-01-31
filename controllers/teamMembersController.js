@@ -1,4 +1,6 @@
 const { TeamMember } = require("../models/TeamMember");
+
+/* Team Members Route Controllers */
 async function addTeamMember(req, res) {
   try {
     const teamMember = new TeamMember({
@@ -13,7 +15,7 @@ async function addTeamMember(req, res) {
       description: req.body.description,
     });
     await teamMember.save();
-    return res.status(200).json(teamMember);
+    return res.status(201).json(teamMember);
   } catch (error) {
     if (error.name === "ValidationError") {
       let errors = {};
@@ -107,6 +109,7 @@ async function updateTeamMember(req, res) {
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }
+
 
 module.exports = {
   addTeamMember,

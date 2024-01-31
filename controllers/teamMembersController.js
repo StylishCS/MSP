@@ -90,7 +90,7 @@ async function updateTeamMember(req, res) {
       const imageName = parts[parts.length - 1];
       fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
         if (err) {
-          throw err;
+          console.log("something went wrong");
         }
       });
       image = process.env.URL + req.file.filename;

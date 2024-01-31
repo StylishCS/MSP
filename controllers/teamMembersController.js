@@ -52,6 +52,7 @@ async function getTeamMemberById(req, res) {
     }
     return res.status(200).json(member);
   } catch (error) {
+    console.log(error)
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }

@@ -92,6 +92,7 @@ async function updateTeamMember(req, res) {
           ? req.body.description
           : teamMember.description,
     };
+    console.log(teamMember)
     console.log(updatedMember);
     await teamMember.updateOne(updatedMember);
     return res.status(200).json("Member Updated Successfully.");

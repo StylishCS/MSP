@@ -2,6 +2,14 @@ const { Timestamp } = require("mongodb");
 const mongoose = require("mongoose");
 require("mongoose-type-url");
 
+const urlValidator = (value) => {
+  return validator.isURL(value, {
+    protocols: ["http", "https", "ftp"],
+    require_tld: true,
+    require_protocol: true,
+  });
+};
+
 const teamMemberSchema = new mongoose.Schema(
   {
     name: {
@@ -29,13 +37,8 @@ const teamMemberSchema = new mongoose.Schema(
       minLength: 3,
       maxLength: 255,
       validate: {
-        validator: (value) =>
-          validator.isURL(value, {
-            protocols: ["http", "https", "ftp"],
-            require_tld: true,
-            require_protocol: true,
-          }),
-        message: "Must be a Valid URL",
+        validator: urlValidator,
+        message: "LinkedIn URL must be valid",
       },
     },
     facebook: {

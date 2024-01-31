@@ -21,7 +21,7 @@ async function addTeamMember(req, res) {
       let errors = {};
       Object.keys(error.errors).forEach((key) => {
         if (error.errors[key].message == "validator is not defined"){
-            error.errors[key].message = `${errors[key]} url must me valid`;
+            error.errors[key].message = `Must be a Valid URL`;
         }
           errors[key] = error.errors[key].message;
       });

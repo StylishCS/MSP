@@ -14,4 +14,8 @@ async function testGetController(req, res) {
   return res.status(200).json(users);
 }
 
-module.exports = { testAddController, testGetController };
+async function protectedRoute(req, res) {
+  return res.status(200).json("Allowed");
+}
+
+module.exports = { testAddController, testGetController, protectedRoute };

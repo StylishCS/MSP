@@ -14,6 +14,7 @@ var teamRouter = require("./routes/team");
 var galleryRouter = require("./routes/gallery");
 var blogRouter = require("./routes/blog");
 var sponsorRouter = require("./routes/sponsor");
+var teamHistoryRouter = require("./routes/teamHistory");
 
 /* Route Protection */
 const AdminPrivileges = require("./middlewares/isAdmin");
@@ -48,6 +49,7 @@ app.use("/dashboard/teams", AdminPrivileges, teamRouter);
 app.use("/dashboard/gallery", AdminPrivileges, galleryRouter);
 app.use("/dashboard/blogs", AdminPrivileges, blogRouter);
 app.use("/dashboard/sponsors", AdminPrivileges, sponsorRouter);
+app.use("/dashboard/teamHistory", AdminPrivileges, teamHistoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

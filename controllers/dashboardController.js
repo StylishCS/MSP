@@ -42,7 +42,17 @@ async function getTeamMembers(req, res) {
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
     const paginatedData = teamMembers.slice(startIndex, endIndex);
-    return res.status(200).json(paginatedData);
+    const data = {};
+    data.teamMembers = paginatedData;
+    data.next = {
+      page: page + 1,
+      limit: limit,
+    };
+    data.previous = {
+      page: page - 1,
+      limit: limit,
+    };
+    return res.status(200).json(data);
   } catch (error) {
     console.log(error);
     return res.status(500).json("INTERNAL SERVER ERROR");

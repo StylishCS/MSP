@@ -1,21 +1,10 @@
 var express = require("express");
+const { Sponsor } = require("../models/Sponsor");
+const { getSponsors } = require("../controllers/sponsorController");
+
 var router = express.Router();
 
-const upload = require("../utils/uploadImage");
-const { Blog } = require("../models/Blog");
-const {
-  addBlogController,
-  deleteBlogController,
-  editBlogController,
-  getBlogByIdController,
-  getBlogsController,
-} = require("../controllers/blogController");
-
-router.get("/get", paginatedResults(Blog), getBlogsController);
-router.get("/getById/:id", getBlogByIdController);
-router.post("/add", upload.single("image"), addBlogController);
-router.patch("/edit/:id", upload.single("image"), editBlogController);
-router.delete("/delete/:id", deleteBlogController);
+router.get("/get", paginatedResults(Sponsor), getSponsors);
 
 /* Pagination Function */
 function paginatedResults(model) {

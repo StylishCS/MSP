@@ -1,21 +1,14 @@
 var express = require("express");
+const {
+  getGalleryItems,
+  getGalleryItemById,
+} = require("../controllers/galleryController");
+const { Gallery } = require("../models/Gallery");
+
 var router = express.Router();
 
-const upload = require("../utils/uploadImage");
-const { Blog } = require("../models/Blog");
-const {
-  addBlogController,
-  deleteBlogController,
-  editBlogController,
-  getBlogByIdController,
-  getBlogsController,
-} = require("../controllers/blogController");
-
-router.get("/get", paginatedResults(Blog), getBlogsController);
-router.get("/getById/:id", getBlogByIdController);
-router.post("/add", upload.single("image"), addBlogController);
-router.patch("/edit/:id", upload.single("image"), editBlogController);
-router.delete("/delete/:id", deleteBlogController);
+router.get("/get", paginatedResults(Gallery), getGalleryItems);
+router.get("/getById/:id", getGalleryItemById);
 
 /* Pagination Function */
 function paginatedResults(model) {

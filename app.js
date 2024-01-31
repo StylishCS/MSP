@@ -6,7 +6,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
 
-/* Routes */
+/* Dashboard Routes */
 var indexRouter = require("./routes/index");
 var configRouter = require("./routes/config");
 var adminRouter = require("./routes/admin");
@@ -15,6 +15,13 @@ var galleryRouter = require("./routes/gallery");
 var blogRouter = require("./routes/blog");
 var sponsorRouter = require("./routes/sponsor");
 var teamHistoryRouter = require("./routes/teamHistory");
+
+/* Client Side Routes */
+var teamClientRouter = require("./routes/teamClient");
+var sponsorsClientRouter = require("./routes/sponsorsClient");
+var teamHistoryClientRouter = require("./routes/teamHistoryClient");
+var blogsClientRouter = require("./routes/blogsClient");
+var galleryClientRouter = require("./routes/galleryClient");
 
 /* Route Protection */
 const AdminPrivileges = require("./middlewares/isAdmin");
@@ -41,7 +48,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "uploads")));
 
-/* Routes */
+/* Dashboard Routes */
 app.use("/", indexRouter);
 app.use("/config", configRouter);
 app.use("/admin", adminRouter);
@@ -50,6 +57,13 @@ app.use("/dashboard/gallery", AdminPrivileges, galleryRouter);
 app.use("/dashboard/blogs", AdminPrivileges, blogRouter);
 app.use("/dashboard/sponsors", AdminPrivileges, sponsorRouter);
 app.use("/dashboard/teamHistory", AdminPrivileges, teamHistoryRouter);
+
+/* Client Side Routes */
+app.use("/teamMembersClient", teamClientRouter);
+app.use("/sponsorsClient", sponsorsClientRouter);
+app.use("/teamHistoryClient", teamHistoryClientRouter);
+app.use("/blogsClient", blogsClientRouter);
+app.use("/galleryClient", galleryClientRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

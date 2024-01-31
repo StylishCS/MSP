@@ -1,21 +1,13 @@
 var express = require("express");
+const { TeamHistory } = require("../models/TeamHistory");
+const {
+  getTeamHistory,
+  getTeamHistoryById,
+} = require("../controllers/teamHistoryController");
 var router = express.Router();
 
-const upload = require("../utils/uploadImage");
-const { Blog } = require("../models/Blog");
-const {
-  addBlogController,
-  deleteBlogController,
-  editBlogController,
-  getBlogByIdController,
-  getBlogsController,
-} = require("../controllers/blogController");
-
-router.get("/get", paginatedResults(Blog), getBlogsController);
-router.get("/getById/:id", getBlogByIdController);
-router.post("/add", upload.single("image"), addBlogController);
-router.patch("/edit/:id", upload.single("image"), editBlogController);
-router.delete("/delete/:id", deleteBlogController);
+router.get("/get", paginatedResults(TeamHistory), getTeamHistory);
+router.get("/getById/:id", getTeamHistoryById);
 
 /* Pagination Function */
 function paginatedResults(model) {

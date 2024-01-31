@@ -38,7 +38,7 @@ const teamMemberSchema = new mongoose.Schema(
       maxLength: 255,
       validate: {
         validator: urlValidator,
-        message: "LinkedIn URL must be valid",
+        message: "Must be a Valid URL",
       },
     },
     facebook: {
@@ -47,12 +47,7 @@ const teamMemberSchema = new mongoose.Schema(
       minLength: 3,
       maxLength: 255,
       validate: {
-        validator: (value) =>
-          validator.isURL(value, {
-            protocols: ["http", "https", "ftp"],
-            require_tld: true,
-            require_protocol: true,
-          }),
+        validator: urlValidator,
         message: "Must be a Valid URL",
       },
     },
@@ -62,12 +57,7 @@ const teamMemberSchema = new mongoose.Schema(
       default: "",
       maxLength: 255,
       validate: {
-        validator: (value) =>
-          validator.isURL(value, {
-            protocols: ["http", "https", "ftp"],
-            require_tld: true,
-            require_protocol: true,
-          }),
+        validator: urlValidator,
         message: "Must be a Valid URL",
       },
     },
@@ -77,12 +67,7 @@ const teamMemberSchema = new mongoose.Schema(
       default: "",
       maxLength: 255,
       validate: {
-        validator: (value) =>
-          validator.isURL(value, {
-            protocols: ["http", "https", "ftp"],
-            require_tld: true,
-            require_protocol: true,
-          }),
+        validator: urlValidator,
         message: "Must be a Valid URL",
       },
     },
@@ -101,7 +86,6 @@ const teamMemberSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
 
 const TeamMember = mongoose.model("TeamMember", teamMemberSchema);
 exports.TeamMember = TeamMember;

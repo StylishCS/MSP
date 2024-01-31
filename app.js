@@ -6,10 +6,10 @@ var logger = require("morgan");
 const mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-
+require("dotenv").config();
 mongoose
   .connect(
-    "mongodb://24.199.127.212:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.3"
+    process.env.MONGODB_URL
   )
   .then(() => console.log("Connected to MongoDB.."))
   .catch((err) => console.error("MongoDB Connection Failed..", err));

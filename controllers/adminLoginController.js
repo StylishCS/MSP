@@ -12,10 +12,7 @@ async function adminLoginController(req, res) {
     if (!user) {
       return res.status(401).json("Wrong Email Or Password...");
     }
-    console.log(req.body.password);
-    console.log(user.password);
-    const match = await bcrypt.compare(req.body.password, user.password);
-    if (!match) {
+    if (!(await bcrypt.compare(req.body.password, user[0].password))) {
       return res.status(401).json("Wrong Email Or Password...");
     }
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
@@ -23,7 +20,6 @@ async function adminLoginController(req, res) {
     });
     return res.status(200).json(user, token);
   } catch (error) {
-    console.log(error);
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }

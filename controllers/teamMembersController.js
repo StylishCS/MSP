@@ -52,7 +52,6 @@ async function getTeamMemberById(req, res) {
     }
     return res.status(200).json(member);
   } catch (error) {
-    console.log(error)
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }
@@ -68,7 +67,7 @@ async function deleteTeamMember(req, res) {
     const imageName = parts[parts.length - 1];
     fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
       if (err) {
-        throw err;
+        console.log("something went wrong");
       }
     });
     await TeamMember.findByIdAndDelete(req.params.id);

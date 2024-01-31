@@ -28,24 +28,60 @@ const teamMemberSchema = new mongoose.Schema(
       required: true,
       minLength: 3,
       maxLength: 255,
+      validate: {
+        validator: (value) =>
+          validator.isURL(value, {
+            protocols: ["http", "https", "ftp"],
+            require_tld: true,
+            require_protocol: true,
+          }),
+        message: "Must be a Valid URL",
+      },
     },
     facebook: {
       type: String,
       required: true,
       minLength: 3,
       maxLength: 255,
+      validate: {
+        validator: (value) =>
+          validator.isURL(value, {
+            protocols: ["http", "https", "ftp"],
+            require_tld: true,
+            require_protocol: true,
+          }),
+        message: "Must be a Valid URL",
+      },
     },
     behanceOrGithub: {
       type: String,
       required: false,
       default: "",
       maxLength: 255,
+      validate: {
+        validator: (value) =>
+          validator.isURL(value, {
+            protocols: ["http", "https", "ftp"],
+            require_tld: true,
+            require_protocol: true,
+          }),
+        message: "Must be a Valid URL",
+      },
     },
     linktree: {
       type: String,
       required: false,
       default: "",
       maxLength: 255,
+      validate: {
+        validator: (value) =>
+          validator.isURL(value, {
+            protocols: ["http", "https", "ftp"],
+            require_tld: true,
+            require_protocol: true,
+          }),
+        message: "Must be a Valid URL",
+      },
     },
     image: {
       type: String,
@@ -62,6 +98,7 @@ const teamMemberSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
 
 const TeamMember = mongoose.model("TeamMember", teamMemberSchema);
 exports.TeamMember = TeamMember;

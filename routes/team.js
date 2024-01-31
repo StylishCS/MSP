@@ -6,16 +6,20 @@ const {
   addTeamMember,
   getTeamMembers,
   deleteTeamMember,
+  updateTeamMember,
+  getTeamMemberById,
 } = require("../controllers/dashboardController");
 const upload = require("../utils/uploadImage");
 const { TeamMember } = require("../models/TeamMember");
 
-/* Pagination Function */
-
 router.post("/add", upload.single("image"), addTeamMember);
 router.get("/get", paginatedResults(TeamMember), getTeamMembers);
 router.delete("/delete/:id", deleteTeamMember);
+router.patch("/edit/:id", updateTeamMember);
+router.get("/getById/:id", getTeamMemberById);
 
+
+/* Pagination Function */
 function paginatedResults(model) {
   return async (req, res, next) => {
     const page = parseInt(req.query.page);

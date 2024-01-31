@@ -33,7 +33,18 @@ async function getTeamMembers(req, res) {
   try {
     return res.status(200).json(res.paginatedResults);
   } catch (error) {
-    console.log(error);
+    return res.status(500).json("INTERNAL SERVER ERROR");
+  }
+}
+
+async function getTeamMemberById(req, res) {
+  try {
+    const member = await TeamMember.findById(req.params.id);
+    if(!member){
+        return res.status(404).json("Member Not Found");
+    }
+    return res.status(200).json(member);
+  } catch (error) {
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }
@@ -51,4 +62,47 @@ async function deleteTeamMember(req, res) {
   }
 }
 
-module.exports = { addTeamMember, getTeamMembers, deleteTeamMember };
+async function updateTeamMember(req, res) {
+  try {
+    let teamMember = await TeamMember.findById(req.params.id);
+    if (!teamMember) {
+      return res.status(404).json("Member Not Found...");
+    }
+    let image = teamMember.image;
+    if (req.file) {
+      image = process.env.URL + req.file.filename;
+    }
+    let updatedMember = {
+      name: req.body.name !== null ? req.body.name : teamMember.name,
+      phone: req.body.phone !== null ? req.body.phone : teamMember.phone,
+      track: req.body.track !== null ? req.body.track : teamMember.track,
+      linkedin:
+        req.body.linkedin !== null ? req.body.linkedin : teamMember.linkedin,
+      facebook:
+        req.body.facebook !== null ? req.body.facebook : teamMember.facebook,
+      behanceOrGithub:
+        req.body.behanceOrGithub !== null
+          ? req.body.behanceOrGithub
+          : teamMember.behanceOrGithub,
+      linktree:
+        req.body.linktree !== null ? req.body.linktree : teamMember.linktree,
+      image: image,
+      description:
+        req.body.description !== null
+          ? req.body.description
+          : teamMember.description,
+    };
+    await teamMember.updateOne(updatedMember);
+    return res.status(200).json("Member Updated Successfully.");
+  } catch (error) {
+    return res.status(500).json("INTERNAL SERVER ERROR");
+  }
+}
+
+module.exports = {
+  addTeamMember,
+  getTeamMembers,
+  deleteTeamMember,
+  updateTeamMember,
+  getTeamMemberById,
+};

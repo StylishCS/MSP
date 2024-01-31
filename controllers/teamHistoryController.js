@@ -1,5 +1,6 @@
 const { TeamHistory } = require("../models/TeamHistory");
 const fs = require("fs");
+const path = require('path');
 
 async function addTeamHistory(req, res) {
   try {
@@ -52,9 +53,9 @@ async function editTeamHistory(req, res) {
     if (req.file) {
       const parts = image.split("/");
       const imageName = parts[parts.length - 1];
-      fs.unlink("../uploads/" + imageName, (err)=>{
-        if(err){
-            throw err;
+      fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
+        if (err) {
+          throw err;
         }
       });
       image = process.env.URL + req.file.filename;
@@ -84,7 +85,7 @@ async function deleteTeamHistory(req, res) {
     let image = teamHistory.image;
     const parts = image.split("/");
     const imageName = parts[parts.length - 1];
-    fs.unlink("../uploads/" + imageName, (err) => {
+    fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
       if (err) {
         throw err;
       }

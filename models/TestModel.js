@@ -9,5 +9,5 @@ const testSchema = new mongoose.Schema({
   },
 });
 
-const TestModel = mongoose.Model("TestModel", testSchema);
+const TestModel = mongoose.model("TestModel", testSchema);
 exports.TestModel = TestModel;

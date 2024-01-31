@@ -73,22 +73,28 @@ async function updateTeamMember(req, res) {
       image = process.env.URL + req.file.filename;
     }
     let updatedMember = {
-      name: req.body.name !== null ? req.body.name : teamMember.name,
-      phone: req.body.phone !== null ? req.body.phone : teamMember.phone,
-      track: req.body.track !== null ? req.body.track : teamMember.track,
+      name: req.body.name !== undefined ? req.body.name : teamMember.name,
+      phone: req.body.phone !== undefined ? req.body.phone : teamMember.phone,
+      track: req.body.track !== undefined ? req.body.track : teamMember.track,
       linkedin:
-        req.body.linkedin !== null ? req.body.linkedin : teamMember.linkedin,
+        req.body.linkedin !== undefined
+          ? req.body.linkedin
+          : teamMember.linkedin,
       facebook:
-        req.body.facebook !== null ? req.body.facebook : teamMember.facebook,
+        req.body.facebook !== undefined
+          ? req.body.facebook
+          : teamMember.facebook,
       behanceOrGithub:
-        req.body.behanceOrGithub !== null
+        req.body.behanceOrGithub !== undefined
           ? req.body.behanceOrGithub
           : teamMember.behanceOrGithub,
       linktree:
-        req.body.linktree !== null ? req.body.linktree : teamMember.linktree,
+        req.body.linktree !== undefined
+          ? req.body.linktree
+          : teamMember.linktree,
       image: image,
       description:
-        req.body.description !== null
+        req.body.description !== undefined
           ? req.body.description
           : teamMember.description,
     };

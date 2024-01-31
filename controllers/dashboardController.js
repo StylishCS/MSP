@@ -98,6 +98,7 @@ async function updateTeamMember(req, res) {
           ? req.body.description
           : teamMember.description,
     };
+    console.log(req.body.name)
     console.log(teamMember)
     console.log(updatedMember);
     await teamMember.updateOne(updatedMember);

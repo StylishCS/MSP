@@ -32,4 +32,4 @@ async function paginateData(model) {
   };
 }
 
-module.exports = paginateData;
+module.exports = {paginateData};

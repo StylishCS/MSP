@@ -8,7 +8,7 @@ const {
   deleteTeamMember,
 } = require("../controllers/dashboardController");
 const upload = require("../utils/uploadImage");
-const paginateData = require("../middlewares/paginateData");
+const {paginateData} = require("../middlewares/paginateData");
 const { TeamMember } = require("../models/TeamMember");
 
 router.post("/add", upload.single("image"), addTeamMember);

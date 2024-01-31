@@ -17,4 +17,21 @@ async function addTeamMember(req, res) {
   return res.status(200).json(teamMember);
 }
 
-module.exports = {addTeamMember};
+async function getTeamMembers(req, res) {
+  const teamMembers = TeamMember.find();
+  if (!teamMembers) {
+    return res.status(400).json("No Team Members Found..");
+  }
+  return res.status(200).json(teamMembers);
+}
+
+async function deleteTeamMember(req, res) {
+  const teamMember = await TeamMember.findById(req.params.id);
+  if (!teamMember) {
+    return res.status(400).json("No Team Members Found..");
+  }
+  await TeamMember.findByIdAndDelete(req.params.id);
+  return res.status(200).json("Team Member Deleted.");
+}
+
+module.exports = { addTeamMember, getTeamMembers, deleteTeamMember };

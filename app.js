@@ -12,6 +12,9 @@ var configRouter = require("./routes/config");
 var adminRouter = require("./routes/admin");
 var teamRouter = require("./routes/team");
 
+/* Route Protection */
+const AdminPrivileges = require("../middlewares/isAdmin");
+
 /* Environment Variables Configuration */
 require("dotenv").config();
 
@@ -38,7 +41,7 @@ app.use(express.static(path.join(__dirname, "uploads")));
 app.use("/", indexRouter);
 app.use("/config", configRouter);
 app.use("/admin", adminRouter);
-app.use("/teams", teamRouter);
+app.use("/dashboard/teams", AdminPrivileges, teamRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

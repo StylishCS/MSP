@@ -122,6 +122,7 @@ async function updateTeamMember(req, res) {
     await teamMember.updateOne(updatedMember);
     return res.status(200).json("Member Updated Successfully.");
   } catch (error) {
+    console.log(error)
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }

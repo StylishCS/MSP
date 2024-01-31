@@ -7,6 +7,7 @@ const teamMemberSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      minLength: 3,
       maxLength: 255,
     },
     phone: {
@@ -19,16 +20,19 @@ const teamMemberSchema = new mongoose.Schema(
     track: {
       type: String,
       required: true,
+      minLength: 3,
       maxLength: 255,
     },
     linkedin: {
       type: String,
       required: true,
+      minLength: 3,
       maxLength: 255,
     },
     facebook: {
       type: String,
       required: true,
+      minLength: 3,
       maxLength: 255,
     },
     behanceOrGithub: {
@@ -46,11 +50,13 @@ const teamMemberSchema = new mongoose.Schema(
     image: {
       type: String,
       required: true,
+      minLength: 3,
       maxLength: 255,
     },
     description: {
       type: String,
       required: true,
+      minLength: 3,
       maxLength: 255,
     },
   },

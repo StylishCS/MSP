@@ -16,6 +16,8 @@ async function AdminPrivileges(req, res, next) {
       console.log(token);
       return res.status(401).json("FORBIDDEN");
     }
+    console.log(key)
+    console.log(token)
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const admin = Admin.findById(decoded._id);
     if (!admin[0]) {

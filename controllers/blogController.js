@@ -1,4 +1,6 @@
 const { Blog } = require("../models/Blog");
+const fs = require("fs");
+const path = require("path");
 
 async function addBlogController(req, res) {
   try {

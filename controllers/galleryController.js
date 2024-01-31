@@ -1,4 +1,6 @@
 const { Gallery } = require("../models/Gallery");
+const fs = require("fs");
+const path = require("path");
 
 /* Gallery Route Controllers */
 async function addGalleryItem(req, res) {

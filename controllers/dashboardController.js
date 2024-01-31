@@ -26,6 +26,7 @@ async function addTeamMember(req, res) {
     // }
     console.log(error.name);
     console.log(error.message);
+    console.log(error._message);
     //console.log(error)
     return res.status(500).json("INTERNAL SERVER ERROR");
   }

@@ -9,7 +9,7 @@ async function adminLoginController(req, res) {
       return res.status(400).json("No Email Or Password Provided...");
     }
     const user = await Admin.find({ email: req.body.email });
-    if (!user) {
+    if (!user[0]) {
       return res.status(401).json("Wrong Email Or Password...");
     }
     if (!(await bcrypt.compare(req.body.password, user[0].password))) {

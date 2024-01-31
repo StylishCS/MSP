@@ -14,24 +14,16 @@ async function addTeamMember(req, res) {
       image: process.env.URL + req.file.filename,
       description: req.body.description,
     });
-    if (
-      !validator.isURL(teamMember.linkedin) ||
-      !validator.isURL(teamMember.facebook) ||
-      !validator.isURL(teamMember.behanceOrGithub) ||
-      !validator.isURL(teamMember.linktree)
-    ) {
-      return res.status(400).json({ message: "Must be a Valid URL" });
-    }
     await teamMember.save();
     return res.status(200).json(teamMember);
   } catch (error) {
-    if (error.name === "ValidationError") {
-      let errors = {};
-      Object.keys(error.errors).forEach((key) => {
-        errors[key] = error.errors[key].message;
-      });
-      return res.status(400).send(errors);
-    }
+    // if (error.name === "ValidationError") {
+    //   let errors = {};
+    //   Object.keys(error.errors).forEach((key) => {
+    //     errors[key] = error.errors[key].message;
+    //   });
+    //   return res.status(400).send(errors);
+    // }
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }

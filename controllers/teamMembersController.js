@@ -27,8 +27,8 @@ async function addTeamMember(req, res) {
       });
       return res.status(400).send(errors);
     }
-    if (error.name === "MongoServerError"){
-        return res.status(400).json({phone:"Phone Number Already Exist."})
+    if (error.name === "MongoServerError") {
+      return res.status(400).json({ phone: "Phone Number Already Exist." });
     }
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
@@ -45,8 +45,8 @@ async function getTeamMembers(req, res) {
 async function getTeamMemberById(req, res) {
   try {
     const member = await TeamMember.findById(req.params.id);
-    if(!member){
-        return res.status(404).json("Member Not Found");
+    if (!member) {
+      return res.status(404).json("Member Not Found");
     }
     return res.status(200).json(member);
   } catch (error) {
@@ -60,6 +60,14 @@ async function deleteTeamMember(req, res) {
     if (!teamMember) {
       return res.status(400).json("Team Member Not Found..");
     }
+    let image = teamMember.image;
+    const parts = image.split("/");
+    const imageName = parts[parts.length - 1];
+    fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
+      if (err) {
+        throw err;
+      }
+    });
     await TeamMember.findByIdAndDelete(req.params.id);
     return res.status(200).json("Team Member Deleted.");
   } catch (error) {
@@ -75,6 +83,14 @@ async function updateTeamMember(req, res) {
     }
     let image = teamMember.image;
     if (req.file) {
+      let image = teamMember.image;
+      const parts = image.split("/");
+      const imageName = parts[parts.length - 1];
+      fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
       image = process.env.URL + req.file.filename;
     }
     let updatedMember = {
@@ -109,7 +125,6 @@ async function updateTeamMember(req, res) {
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }
-
 
 module.exports = {
   addTeamMember,

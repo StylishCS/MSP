@@ -47,6 +47,14 @@ async function deleteGalleryItem(req, res) {
     if (!galleryItem) {
       return res.status(404).json("Item Not Found In The Gallery...");
     }
+    let image = galleryItem.image;
+    const parts = image.split("/");
+    const imageName = parts[parts.length - 1];
+    fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
+      if (err) {
+        throw err;
+      }
+    });
     await Gallery.findByIdAndDelete(req.params.id);
     return res.status(200).json("Item Deleted From The Gallery Successfully");
   } catch (error) {
@@ -62,6 +70,13 @@ async function updateGalleryItem(req, res) {
     }
     let image = galleryItem.image;
     if (req.file) {
+      const parts = image.split("/");
+      const imageName = parts[parts.length - 1];
+      fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
       image = process.env.URL + req.file.filename;
     }
     const updatedItem = {

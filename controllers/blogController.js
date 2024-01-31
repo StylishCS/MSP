@@ -51,6 +51,13 @@ async function editBlogController(req, res) {
     }
     let image = blog.image;
     if (req.file) {
+      const parts = image.split("/");
+      const imageName = parts[parts.length - 1];
+      fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
       image = process.env.URL + req.file.filename;
     }
     const updatedBlog = {
@@ -80,6 +87,14 @@ async function deleteBlogController(req, res) {
     if (!blog) {
       return res.status(404).json("Blog Not Found...");
     }
+    let image = blog.image;
+    const parts = image.split("/");
+    const imageName = parts[parts.length - 1];
+    fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
+      if (err) {
+        throw err;
+      }
+    });
     await Blog.findByIdAndDelete(req.params.id);
     return res.status(200).json("Blog Deleted Successfully");
   } catch (error) {

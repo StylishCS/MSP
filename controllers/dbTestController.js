@@ -22,7 +22,6 @@ async function protectedRoute(req, res) {
 }
 
 async function testUploadImage(req, res) {
-  console.log(req.file)
   return res.status(200).json("uploaded");
 }
 

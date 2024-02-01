@@ -25,14 +25,17 @@ async function addTeamMember(req, res) {
         if (error.errors[key].message == "validator is not defined") {
           error.errors[key].message = `Must be a Valid URL`;
         }
-        errors[key] = error.errors[key].message;
+        if (error.errors[key].message == "TypeError"){
+          error.errors[key].message = "Please provide a valid image";
+        }
+          errors[key] = error.errors[key].message;
       });
       return res.status(400).send(errors);
     }
     if (error.name === "MongoServerError") {
       return res.status(400).json({ phone: "Phone Number Already Exist." });
     }
-    console.log(error)
+    console.log(error);
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }

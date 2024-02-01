@@ -5,6 +5,7 @@ const gallerySchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      enum: ['Events', 'Sessions'],
       minLength: 3,
       maxLength: 255,
     },

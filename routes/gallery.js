@@ -4,7 +4,8 @@ const {
   getGalleryItems,
   deleteGalleryItem,
   getGalleryItemById,
-  updateGalleryItem
+  updateGalleryItem,
+  getSessionsGallery
 } = require("../controllers/galleryController");
 const upload = require("../utils/uploadImage");
 const { Gallery } = require("../models/Gallery");
@@ -16,6 +17,7 @@ router.get("/get", paginatedResults(Gallery), getGalleryItems);
 router.delete("/delete/:id", deleteGalleryItem);
 router.get("/getById/:id", getGalleryItemById);
 router.patch("/edit/:id", upload.single("image"), updateGalleryItem);
+router.get("/getSessions", getSessionsGallery);
 
 /* Pagination Function */
 function paginatedResults(model) {

@@ -92,10 +92,48 @@ async function updateGalleryItem(req, res) {
   }
 }
 
+async function getSessionsGallery(req, res) {
+  try {
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const results = {};
+
+    if (endIndex < (await Gallery.countDocuments().exec())) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
+    results.results = await Gallery.find({ name: "Sessions" })
+      .limit(limit)
+      .skip(startIndex)
+      .exec();
+    if (!results.results) {
+      return res.status(404).json("No Data Found");
+    }
+    res.paginatedResults = results;
+    return res.status(200).json(res.paginatedResults);
+  } catch (error) {
+    return res.status(500).json("INTERNAL SERVER ERROR");
+  }
+}
+
 module.exports = {
   addGalleryItem,
   getGalleryItems,
   deleteGalleryItem,
   getGalleryItemById,
   updateGalleryItem,
+  getSessionsGallery,
 };

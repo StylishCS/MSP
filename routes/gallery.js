@@ -18,6 +18,7 @@ router.delete("/delete/:id", deleteGalleryItem);
 router.get("/getById/:id", getGalleryItemById);
 router.patch("/edit/:id", upload.single("image"), updateGalleryItem);
 router.get("/getSessions", getSessionsGallery);
+router.get("/getEvents", getSessionsGallery);
 
 /* Pagination Function */
 function paginatedResults(model) {

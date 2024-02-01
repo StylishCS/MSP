@@ -9,7 +9,6 @@ const { TeamMember } = require("../models/TeamMember");
 router.get("/get", paginatedResults(TeamMember), getTeamMembers);
 router.get("/getById/:id", getTeamMemberById);
 
-
 /* Pagination Function */
 function paginatedResults(model) {
   return async (req, res, next) => {

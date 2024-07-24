@@ -25,4 +25,17 @@ async function adminLoginController(req, res) {
   }
 }
 
-module.exports = { adminLoginController };
+async function seedAdminController(req, res) {
+  try {
+    const admin = new Admin({
+      email: "admin",
+      password: bcrypt.hashSync("admin", 10),
+    });
+    await admin.save();
+    return res.status(201).json(admin);
+  } catch (err) {
+    return res.status(500).json("INTERNAL SERVER ERROR");
+  }
+}
+
+module.exports = { adminLoginController, seedAdminController };

@@ -1,5 +1,6 @@
 const { Sponsor } = require("../models/Sponsor");
-
+const fs = require("fs");
+const path = require("path");
 async function addSponsor(req, res) {
   try {
     const sponsor = new Sponsor({
@@ -26,4 +27,23 @@ async function getSponsors(req, res) {
   }
 }
 
-module.exports = { addSponsor, getSponsors };
+async function deleteSponsorController(req, res) {
+  try {
+    const sponsor = await Sponsor.findById(req.params.id);
+    if (!sponsor) {
+      return res.status(404).json("Sponsor not found..");
+    }
+    const parts = sponsor.image.split("/");
+    const imageName = parts[parts.length - 1];
+    fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
+      if (err) {
+        throw err;
+      }
+    });
+    await Sponsor.findByIdAndDelete(sponsor._id);
+    return res.status(200).json("Deleted");
+  } catch (err) {
+    return res.status(500).json("INTERNAL SERVER ERROR");
+  }
+}
+module.exports = { addSponsor, getSponsors, deleteSponsorController };

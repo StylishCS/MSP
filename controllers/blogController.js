@@ -97,7 +97,7 @@ async function deleteBlogController(req, res) {
         throw err;
       }
     });
-    await Blog.findByIdAndDelete(req.params.id);
+    await Blog.findByIdAndDelete(blog._id);
     return res.status(200).json("Blog Deleted Successfully");
   } catch (error) {
     return res.status(500).json("INTERNAL SERVER ERROR");

@@ -1,0 +1,30 @@
+name: Deploy to Droplet
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_IP }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ./MSP-API
+
+            git pull origin main
+
+            npm install
+
+            pm2 restart app
+
+            echo "Deployment successful"

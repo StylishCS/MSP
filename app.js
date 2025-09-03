@@ -1,11 +1,11 @@
 /* Packages */
-var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
 const cors = require('cors');
+const helmet = require('helmet');
 
 /* Dashboard Routes */
 var indexRouter = require("./routes/index");
@@ -16,6 +16,8 @@ var galleryRouter = require("./routes/gallery");
 var blogRouter = require("./routes/blog");
 var sponsorRouter = require("./routes/sponsor");
 var teamHistoryRouter = require("./routes/teamHistory");
+var formRouter = require("./routes/form");
+var reviewRouter = require("./routes/review");
 
 /* Client Side Routes */
 var teamClientRouter = require("./routes/teamClient");
@@ -26,32 +28,39 @@ var galleryClientRouter = require("./routes/galleryClient");
 
 /* Route Protection */
 const AdminPrivileges = require("./middlewares/isAdmin");
+const rateLimiter = require("./middlewares/rateLimiter");
+const errorHandler = require('./middlewares/errorHandler');
+
+const AppError = require('./utils/appError');
 
 /* Environment Variables Configuration */
 require("dotenv").config();
 
 /* Database Connection */
-mongoose
-  .connect(process.env.MONGODB_URL)
-  .then(() => console.log("Connected to MongoDB.."))
-  .catch((err) => console.error("MongoDB Connection Failed..", err));
+const mongoURI = process.env.MONGODB_URL;
+if (!mongoURI) {
+  console.error('MongoDB URL is undefined. Check your .env file.');
+  process.exit(1);
+}
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch((err) => console.error('MongoDB Connection Failed:', err));
 
 var app = express();
 app.use(cors());
-
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+app.use(helmet());
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "uploads")));
+app.use("/public", express.static(path.join(__dirname, "public")));
+app.use(rateLimiter);
 
 /* Dashboard Routes */
-app.use("/", indexRouter);
+app.use("/health", indexRouter);
 app.use("/config", configRouter);
 app.use("/admin", adminRouter);
 app.use("/dashboard/teams", AdminPrivileges, teamRouter);
@@ -59,6 +68,8 @@ app.use("/dashboard/gallery", AdminPrivileges, galleryRouter);
 app.use("/dashboard/blogs", AdminPrivileges, blogRouter);
 app.use("/dashboard/sponsors", AdminPrivileges, sponsorRouter);
 app.use("/dashboard/teamHistory", AdminPrivileges, teamHistoryRouter);
+app.use("/form", formRouter);
+app.use("/reviews", reviewRouter);
 
 /* Client Side Routes */
 app.use("/teamMembersClient", teamClientRouter);
@@ -67,20 +78,17 @@ app.use("/teamHistoryClient", teamHistoryClientRouter);
 app.use("/blogsClient", blogsClientRouter);
 app.use("/galleryClient", galleryClientRouter);
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+
+// Catch-all route handler for undefined routes
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+// Global error handling middleware
+app.use(errorHandler);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+var PORT = process.env.PORT || '3000';
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
-
-module.exports = app;

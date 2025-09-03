@@ -1,0 +1,1793 @@
+{
+	"info": {
+		"_postman_id": "707b7d40-689a-4a63-b120-9c270d19099b",
+		"name": "MSP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29810044"
+	},
+	"item": [
+		{
+			"name": "Config Requests",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Test",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Mohamed\",\r\n    \"email\":\"MohamedRamadanSaudi@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/config/testPost",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"config",
+								"testPost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/config/testGet",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"config",
+								"testGet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seed Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/admin/seed",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"seed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Privileges",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "MSP {{JWT}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/config/protected",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"config",
+								"protected"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/M:/Images/Profile_avatar_placeholder_large.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/config/uploadImage",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"config",
+								"uploadImage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Dashboard Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"JWT\", pm.response.json().token);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"admin\",\r\n    \"password\":\"Admin1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/admin/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"admin",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Teams",
+					"item": [
+						{
+							"name": "Add Team Member",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Mohamed Ramadan",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "01201042824",
+											"type": "text"
+										},
+										{
+											"key": "track",
+											"value": "Lead Back-End",
+											"type": "text"
+										},
+										{
+											"key": "linkedin",
+											"value": "https://www.linkedin.com/in/mohamed-ramadan-saudi/",
+											"type": "text"
+										},
+										{
+											"key": "facebook",
+											"value": "mohamed-ramadan.me",
+											"type": "text"
+										},
+										{
+											"key": "behanceOrGithub",
+											"value": "https://github.com/MohamedRamadanSaudi",
+											"type": "text"
+										},
+										{
+											"key": "linktree",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/pc/Downloads/WhatsApp Image 2025-01-27 at 5.33.49 PM.jpeg"
+										},
+										{
+											"key": "description",
+											"value": "Backend Engineer",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/dashboard/teams/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"teams",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Team Members",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/teams/get?page=1&limit=7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"teams",
+										"get"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Team Member By ID",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/teams/delete/6798f22d6c970ebb57e914c9",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"teams",
+										"delete",
+										"6798f22d6c970ebb57e914c9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Member By ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/teams/getById/6798f1d8e409755c892cebaf",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"teams",
+										"getById",
+										"6798f1d8e409755c892cebaf"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Member",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Mohamed",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/pc/Downloads/WhatsApp Image 2024-11-28 at 7.03.39 AM.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/dashboard/teams/edit/6747803b9a2cbb1f8ad81c04",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"teams",
+										"edit",
+										"6747803b9a2cbb1f8ad81c04"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Gallery",
+					"item": [
+						{
+							"name": "Add To Gallery",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Events",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/M:/Images/Mohamed_Ramadan.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/dashboard/gallery/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"gallery",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Gallery",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/gallery/get?page=1&limit=10",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"gallery",
+										"get"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Gallery Item By ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/gallery/getById/67480852718b5cfe56c02332",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"gallery",
+										"getById",
+										"67480852718b5cfe56c02332"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Item From Gallery",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/gallery/delete/674878644fc22232c10f90a2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"gallery",
+										"delete",
+										"674878644fc22232c10f90a2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Gallery Item",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Welcome Day 9999",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/pc/Downloads/WhatsApp Image 2024-11-28 at 7.03.39 AM.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/dashboard/gallery/edit/67480852718b5cfe56c02332",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"gallery",
+										"edit",
+										"67480852718b5cfe56c02332"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Session Photos Only",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/gallery/getSessions?page=1&limit=10",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"gallery",
+										"getSessions"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Event Photos Only",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/gallery/getEvents?page=1&limit=10",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"gallery",
+										"getEvents"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Blogs",
+					"item": [
+						{
+							"name": "Add Blog",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "NodeJS Latest News",
+											"type": "text"
+										},
+										{
+											"key": "instagram",
+											"value": "_randomjoe",
+											"type": "text"
+										},
+										{
+											"key": "linkedin",
+											"value": "https://www.linkedin.com/in/yusef-sherif-158855262/",
+											"type": "text"
+										},
+										{
+											"key": "facebook",
+											"value": "https://www.facebook.com/profile.php?id=100007282608318",
+											"type": "text"
+										},
+										{
+											"key": "twitter",
+											"value": "https://www.x.com",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/pc/Downloads/WhatsApp Image 2025-01-27 at 5.33.49 PM.jpeg"
+										},
+										{
+											"key": "description",
+											"value": "NodeJS Latest News Blog",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/dashboard/blogs/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"blogs",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Blogs",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/blogs/get?page=1&limit=10",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"blogs",
+										"get"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Blog By ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/blogs/getById/674809db718b5cfe56c02357",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"blogs",
+										"getById",
+										"674809db718b5cfe56c02357"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Blog",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "NodeJs Latest News delete",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/pc/Downloads/WhatsApp Image 2024-11-28 at 7.03.39 AM.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/dashboard/blogs/edit/674809db718b5cfe56c02357",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"blogs",
+										"edit",
+										"674809db718b5cfe56c02357"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Blog",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/blogs/delete/6798f595c689a8473a2e5e7e",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"blogs",
+										"delete",
+										"6798f595c689a8473a2e5e7e"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sponsors",
+					"item": [
+						{
+							"name": "Add Sponsor",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/M:/Images/IMG_20231208_225344.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/dashboard/sponsors/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"sponsors",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Sponsors",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/sponsors/get?page=1&limit=10",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"sponsors",
+										"get"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Sponsor",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/sponsors/delete/674852403514930c0fc6fa85",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"sponsors",
+										"delete",
+										"674852403514930c0fc6fa85"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Team History",
+					"item": [
+						{
+							"name": "Add Team History",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "MSP Website",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "MSP Website Process",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/M:/Images/Mohamed_Ramadan.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/dashboard/teamHistory/add",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"teamHistory",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Team History",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/teamHistory/get?page=1&limit=10",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"teamHistory",
+										"get"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Team History By ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/teamHistory/getById/67480ad8718b5cfe56c02386",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"teamHistory",
+										"getById",
+										"67480ad8718b5cfe56c02386"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Team History",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "description",
+											"value": "MSP Website Process On Going delete",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/pc/Downloads/WhatsApp Image 2024-11-28 at 7.03.39 AM.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/dashboard/teamHistory/edit/67480ad8718b5cfe56c02386",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"teamHistory",
+										"edit",
+										"67480ad8718b5cfe56c02386"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Team History",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/dashboard/teamHistory/delete/674853063514930c0fc6fa8e",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"dashboard",
+										"teamHistory",
+										"delete",
+										"674853063514930c0fc6fa8e"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reviews",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "reviewerName",
+											"value": "Mohamed Ramadan",
+											"type": "text"
+										},
+										{
+											"key": "photo",
+											"description": "Optional",
+											"type": "file",
+											"src": "/C:/Users/pc/Downloads/WhatsApp Image 2025-01-27 at 5.33.49 PM.jpeg",
+											"disabled": true
+										},
+										{
+											"key": "title",
+											"value": "Backend Developer",
+											"type": "text"
+										},
+										{
+											"key": "review",
+											"value": "test review",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/reviews",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reviews"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "reviewerName",
+											"value": "Mohamed Ramadan",
+											"type": "text"
+										},
+										{
+											"key": "photo",
+											"description": "Optional",
+											"type": "file",
+											"src": "/C:/Users/pc/Downloads/WhatsApp Image 2025-01-27 at 5.33.49 PM.jpeg",
+											"disabled": true
+										},
+										{
+											"key": "title",
+											"value": "Backend Developer 2",
+											"type": "text"
+										},
+										{
+											"key": "review",
+											"value": "test review test",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/reviews/679d1ee8248bbdc284417c45",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reviews",
+										"679d1ee8248bbdc284417c45"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/reviews?page=1&limit=10",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reviews"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Display",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/reviews/679d1ce45ae1ce8536af0ffd",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reviews",
+										"679d1ce45ae1ce8536af0ffd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/reviews/679d1ce45ae1ce8536af0ffd",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reviews",
+										"679d1ce45ae1ce8536af0ffd"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "form",
+					"item": [
+						{
+							"name": "Seed form model",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/form",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"form"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get form status",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/form",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"form"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update form status",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"is_open\": true // true or false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/form",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"form"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Client Side",
+			"item": [
+				{
+					"name": "Team Members",
+					"item": [
+						{
+							"name": "Get All Team Members",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/teamMembersClient/get?page=1&limit=2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"teamMembersClient",
+										"get"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Team Member By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/teamMembersClient/getById/6798f1d8e409755c892cebaf",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"teamMembersClient",
+										"getById",
+										"6798f1d8e409755c892cebaf"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sponsors",
+					"item": [
+						{
+							"name": "Get All Sponsors",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/sponsorsClient/get?page=1&limit=2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sponsorsClient",
+										"get"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Team History",
+					"item": [
+						{
+							"name": "Get All Team History",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/teamHistoryClient/get?page=1&limit=2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"teamHistoryClient",
+										"get"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Team History By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/teamHistoryClient/getById/67480ada718b5cfe56c02389",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"teamHistoryClient",
+										"getById",
+										"67480ada718b5cfe56c02389"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Blogs",
+					"item": [
+						{
+							"name": "Get All Blogs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/blogsClient/get?page=1&limit=2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"blogsClient",
+										"get"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Blog By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/blogsClient/getById/674809f3718b5cfe56c0235d",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"blogsClient",
+										"getById",
+										"674809f3718b5cfe56c0235d"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Gallery",
+					"item": [
+						{
+							"name": "Get All Gallery",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/galleryClient/get?page=1&limit=2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"galleryClient",
+										"get"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get A Gallery Photo By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/galleryClient/getById/6748086b718b5cfe56c02338",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"galleryClient",
+										"getById",
+										"6748086b718b5cfe56c02338"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Only Session Photos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/galleryClient/getSessions?page=1&limit=2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"galleryClient",
+										"getSessions"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Only Event Photos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/galleryClient/getEvents?page=1&limit=2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"galleryClient",
+										"getEvents"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "form",
+					"item": [
+						{
+							"name": "Get form status",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/form",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"form"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reviews",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/reviews?page=1&limit=10",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reviews"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Display",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "MSP {{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/reviews/679d1ce45ae1ce8536af0ffd",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"reviews",
+										"679d1ce45ae1ce8536af0ffd"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

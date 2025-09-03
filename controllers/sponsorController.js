@@ -4,7 +4,7 @@ const path = require("path");
 async function addSponsor(req, res) {
   try {
     const sponsor = new Sponsor({
-      image: process.env.URL + req.file.filename,
+      image: `${process.env.URL}${req.file.filename}`,
     });
     await sponsor.save();
     return res.status(201).json("Sponsor Created Successfully");

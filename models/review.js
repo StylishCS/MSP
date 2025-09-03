@@ -1,31 +1,34 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-const teamHistorySchema = new mongoose.Schema(
+const reviewSchema = new mongoose.Schema(
   {
-    name: {
+    reviewerName: {
       type: String,
       required: true,
       minLength: 3,
       maxLength: 255,
     },
-    image: {
+    title: {
       type: String,
       required: true,
       minLength: 3,
       maxLength: 255,
     },
-    description: {
+    review: {
       type: String,
       required: true,
       minLength: 3,
-      maxLength: 255,
+      maxLength: 1000,
     },
-    date: {
+    photo: {
       type: String,
+      required: false,
+      default: `${process.env.URL}public/default_photo.png`,
     },
   },
   { timestamps: true }
 );
 
-const TeamHistory = mongoose.model("TeamHistory", teamHistorySchema);
-exports.TeamHistory = TeamHistory;
+const Review = mongoose.model("Review", reviewSchema);
+module.exports = Review;

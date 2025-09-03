@@ -13,7 +13,7 @@ async function addTeamMember(req, res) {
       facebook: req.body.facebook,
       behanceOrGithub: req.body.behanceOrGithub,
       linktree: req.body.linktree,
-      image: process.env.URL + req.file.filename,
+      image: `${process.env.URL}${req.file.filename}`,
       description: req.body.description,
     });
     await teamMember.save();
@@ -25,17 +25,16 @@ async function addTeamMember(req, res) {
         if (error.errors[key].message == "validator is not defined") {
           error.errors[key].message = `Must be a Valid URL`;
         }
-        if (error.errors[key].message == "TypeError"){
+        if (error.errors[key].message == "TypeError") {
           error.errors[key].message = "Please provide a valid image";
         }
-          errors[key] = error.errors[key].message;
+        errors[key] = error.errors[key].message;
       });
       return res.status(400).send(errors);
     }
     if (error.name === "MongoServerError") {
       return res.status(400).json({ phone: "Phone Number Already Exist." });
     }
-    console.log(error);
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }
@@ -71,10 +70,10 @@ async function deleteTeamMember(req, res) {
     const imageName = parts[parts.length - 1];
     fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
       if (err) {
-        console.log("something went wrong");
+        return res.status(500).json("INTERNAL SERVER ERROR");
       }
     });
-    await TeamMember.findByIdAndDelete(req.params.id);
+    await TeamMember.findByIdAndDelete(teamMember._id);
     return res.status(200).json("Team Member Deleted.");
   } catch (error) {
     return res.status(500).json("INTERNAL SERVER ERROR");
@@ -93,10 +92,10 @@ async function updateTeamMember(req, res) {
       const imageName = parts[parts.length - 1];
       fs.unlink(path.join(__dirname, "../uploads/", imageName), (err) => {
         if (err) {
-          console.log("something went wrong");
+          return res.status(500).json("INTERNAL SERVER ERROR");
         }
       });
-      image = process.env.URL + req.file.filename;
+      image = `${process.env.URL}${req.file.filename}`;
     }
     let updatedMember = {
       name: req.body.name !== undefined ? req.body.name : teamMember.name,

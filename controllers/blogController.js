@@ -10,7 +10,7 @@ async function addBlogController(req, res) {
       linkedin: req.body.linkedin,
       facebook: req.body.facebook,
       twitter: req.body.twitter,
-      image: process.env.URL + req.file.filename,
+      image: `${process.env.URL}${req.file.filename}`,
       description: req.body.description,
     });
     await blog.save();
@@ -60,7 +60,7 @@ async function editBlogController(req, res) {
           throw err;
         }
       });
-      image = process.env.URL + req.file.filename;
+      image = `${process.env.URL}${req.file.filename}`;
     }
     const updatedBlog = {
       name: req.body.name !== undefined ? req.body.name : blog.name,

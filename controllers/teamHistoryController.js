@@ -6,8 +6,9 @@ async function addTeamHistory(req, res) {
   try {
     const teamHistory = new TeamHistory({
       name: req.body.name,
-      image: process.env.URL + req.file.filename,
+      image: `${process.env.URL}${req.file.filename}`,
       description: req.body.description,
+      date: req.body.date,
     });
     await teamHistory.save();
     return res.status(201).json("Team History Added Successfully");
@@ -58,7 +59,7 @@ async function editTeamHistory(req, res) {
           throw err;
         }
       });
-      image = process.env.URL + req.file.filename;
+      image = `${process.env.URL}${req.file.filename}`;
     }
     const updatedTeamHistory = {
       name: req.body.name !== undefined ? req.body.name : teamHistory.name,
@@ -67,11 +68,11 @@ async function editTeamHistory(req, res) {
           ? req.body.description
           : teamHistory.description,
       image: image,
+      date: req.body.date !== undefined ? req.body.date : teamHistory.date,
     };
     await teamHistory.updateOne(updatedTeamHistory);
     return res.status(200).json(updatedTeamHistory);
   } catch (error) {
-    console.log(error)
     return res.status(500).json("INTERNAL SERVER ERROR");
   }
 }
@@ -90,7 +91,7 @@ async function deleteTeamHistory(req, res) {
         throw err;
       }
     });
-    await TeamHistory.findByIdAndDelete(req.params.id);
+    await TeamHistory.findByIdAndDelete(teamHistory._id);
     return res.status(200).json("Team History Deleted Successfully.")
   } catch (error) {
     return res.status(500).json("INTERNAL SERVER ERROR");

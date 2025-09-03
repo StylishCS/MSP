@@ -5,17 +5,13 @@ const path = require("path");
 /* Gallery Route Controllers */
 async function addGalleryItem(req, res) {
   try {
-    console.log("flag 1");
     const galleryItem = new Gallery({
       name: req.body.name,
-      image: process.env.URL + req.file.filename,
+      image: `${process.env.URL}${req.file.filename}`,
     });
     await galleryItem.save();
-    console.log("flag 2");
     return res.status(201).json("Image Added To Gallery.");
   } catch (error) {
-    console.log("flag 3");
-    console.log(error);
     if (error.name === "ValidationError") {
       let errors = {};
       Object.keys(error.errors).forEach((key) => {
@@ -83,7 +79,7 @@ async function updateGalleryItem(req, res) {
           throw err;
         }
       });
-      image = process.env.URL + req.file.filename;
+      image = `${process.env.URL}${req.file.filename}`;
     }
     const updatedItem = {
       name: req.body.name !== undefined ? req.body.name : galleryItem.name,
